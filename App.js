@@ -1,24 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { useState } from "react";
+import { StyleSheet, View, FlatList } from "react-native";
+import TodoItem from "./components/TodoItem";
+import TodoInput from "./components/TodoInput";
 
 export default function App() {
+  const [todoItems, setTodoItems] = useState([]);
+
+  function addHandler(enteredText) {
+    setTodoItems((prev) => [
+      ...prev,
+      { text: enteredText, key: Math.random().toString() },
+    ]);
+  }
+
+  function deleteItem(id) {
+    setTodoItems((prev) => {
+      return todoItems.filter((item) => item.key !== id); //keep items where there is no match
+    });
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>To do list</Text>
-      <StatusBar style="auto" />
+    <View style={styles.appContainer}>
+      <TodoInput onAddItem={addHandler} />
+      <View style={styles.goalsContainer}>
+        <FlatList
+          data={todoItems}
+          renderItem={(itemData) => {
+            return (
+              <TodoItem
+                text={itemData.item.text}
+                onDelete={deleteItem}
+                id={itemData.item.key}
+              />
+            );
+          }}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
+    paddingTop: 50,
+    paddingHorizontal: 16,
     flex: 1,
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  title:{
-    color: '#fff',
-  }
-
+  goalsContainer: {
+    flex: 5,
+  },
 });
