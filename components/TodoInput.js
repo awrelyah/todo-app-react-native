@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, View, TextInput, Button } from "react-native";
+import { StyleSheet, View, TextInput, Text, Pressable } from "react-native";
 
 function TodoInput(props) {
   const [todoItemText, setTodoItemText] = useState("");
@@ -20,7 +20,9 @@ function TodoInput(props) {
         onChangeText={inputHandler}
         value={todoItemText}
       />
-      <Button title="Add" onPress={addHandler}></Button>
+      <Pressable style={styles.button} onPress={addHandler}>
+        <Text style={styles.text}>add</Text>
+      </Pressable>
     </View>
   );
 }
@@ -36,10 +38,17 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
   textInput: {
-    borderWidth: 1,
-    borderColor: "#bfbec0",
+    backgroundColor: "#efeeee",
     width: "80%",
-    marginRight: 6,
-    padding: 8,
+    padding: 12,
+    borderRadius: 6,
   },
+  button: {
+    backgroundColor: "#ae8ca2",
+    padding:12,
+    borderRadius: 6,
+  },
+  text: {
+    color: 'white',
+  }
 });

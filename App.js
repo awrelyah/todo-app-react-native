@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Text } from "react-native";
 import TodoItem from "./components/TodoItem";
 import TodoInput from "./components/TodoInput";
 
@@ -21,6 +21,7 @@ export default function App() {
 
   return (
     <View style={styles.appContainer}>
+      <Text style={styles.title}>TO DO LIST</Text>
       <TodoInput onAddItem={addHandler} />
       <View style={styles.goalsContainer}>
         <FlatList
@@ -42,11 +43,14 @@ export default function App() {
 
 const styles = StyleSheet.create({
   appContainer: {
-    paddingTop: 50,
     paddingHorizontal: 16,
     flex: 1,
   },
   goalsContainer: {
     flex: 5,
+  },
+  title: {
+    paddingTop: 60,
+    fontSize: 20,
   },
 });
